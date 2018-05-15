@@ -313,7 +313,7 @@ main(int argc, char** argv) {
   // LOG_NODELAY => Connect immediately
   setlogmask(LOG_UPTO(LOG_INFO));
   openlog("openr", LOG_CONS | LOG_PID | LOG_NDELAY | LOG_PERROR, LOG_LOCAL4);
-  syslog(LOG_NOTICE, "Starting OpenR daemon.");
+  syslog(LOG_NOTICE, "Starting OpenR daemon....hello from main fork.");
 
   // Initialize all params
   folly::init(&argc, &argv);
@@ -400,7 +400,7 @@ main(int argc, char** argv) {
 
     // Spawn a watchdog thread
     allThreads.emplace_back(std::thread([&watchdog]() noexcept {
-      LOG(INFO) << "Starting Watchdog thread ...";
+      LOG(INFO) << "Starting Watchdog thread ..hello 1.";
       folly::setThreadName("Watchdog");
       watchdog->run();
       LOG(INFO) << "Watchdog thread got stopped.";
@@ -485,7 +485,7 @@ main(int argc, char** argv) {
   PersistentStore configStore(
       FLAGS_config_store_filepath, kConfigStoreUrl, context);
   std::thread configStoreThread([&configStore]() noexcept {
-    LOG(INFO) << "Starting ConfigStore thread...";
+    LOG(INFO) << "Starting ConfigStore thread...hello2";
     folly::setThreadName("ConfigStore");
     configStore.run();
     LOG(INFO) << "ConfigStore thread got stopped.";
